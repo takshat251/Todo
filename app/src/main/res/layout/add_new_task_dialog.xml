@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="380dp"
+    android:layout_height="250dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="10dp"
+    android:orientation="vertical"
+    android:background="@color/colorAccent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_pen"
+        app:endIconMode="clear_text"
+        app:counterEnabled="true"
+        app:counterMaxLength="250"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textFieldNewTaskLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textFieldNewTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Task"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.chip.Chip
+        style="@style/Widget.MaterialComponents.Chip.Action"
+        android:id="@+id/setReminderChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:chipCornerRadius="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/set_reminder" />
+
+
+
+</LinearLayout>

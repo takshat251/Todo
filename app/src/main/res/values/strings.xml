@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">To do</string>
+    <string name="title">New Task</string>
+    <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="new_task">Task..</string>
+</resources>
