@@ -16,8 +16,8 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.android.synthetic.main.recyclerview_single_task.view.*
 
-class TaskAdapter(val context: Context, val taskContentList:List<TaskEntity>) :RecyclerView.Adapter<TaskAdapter.ViewHolderTask>(){
-  // lateinit var taskAdapter:TaskAdapter
+class TaskAdapter(val context: Context, val taskContentList:List<TaskEntity>,private val listener: OnItemClickListener) :RecyclerView.Adapter<TaskAdapter.ViewHolderTask>(){
+  // lateinit var taskAdapter:TaskAdapter//
 
     class ViewHolderTask(view: View): RecyclerView.ViewHolder(view) {
         val textTask: MaterialTextView =view.findViewById(R.id.textViewTask)
@@ -33,6 +33,10 @@ class TaskAdapter(val context: Context, val taskContentList:List<TaskEntity>) :R
     override fun getItemCount(): Int {
         return taskContentList.size
     }
+    interface OnItemClickListener {//
+    fun ondeleteClick(taskId:Int)//
+
+    }
 
     override fun onBindViewHolder(holder: TaskAdapter.ViewHolderTask, position: Int) {
         val taskItemObject=taskContentList[position]
@@ -40,12 +44,12 @@ class TaskAdapter(val context: Context, val taskContentList:List<TaskEntity>) :R
 
         holder.llContent.deleteTaskBtn.setOnClickListener(View.OnClickListener {
               val taskEntity=TaskEntity(taskItemObject.taskContent,1)
-                val result = DBAsynTask(context, taskEntity, 3).execute().get()
+                val result = DBAsynTask(context, taskItemObject.taskId, 3).execute().get()//
                 if (result) {
 
                     Toast.makeText(context, "Task Deleted ", Toast.LENGTH_SHORT).show()
                     notifyItemRemoved(position)
-
+                    listener.ondeleteClick(taskItemObject.taskId)//
 
                 } else {
                     Toast.makeText(context, "Some error occurred", Toast.LENGTH_SHORT).show()

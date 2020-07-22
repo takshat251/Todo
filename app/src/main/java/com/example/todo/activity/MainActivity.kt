@@ -39,21 +39,24 @@ class MainActivity : AppCompatActivity() {
 
         layoutManager = LinearLayoutManager(this)
         recyclerViewSingleTask = findViewById(R.id.taskLayout)
- 
 
-        dbTaskList = RetrieveTasks(this).execute().get() as ArrayList<TaskEntity>
-
-
-
-        taskAdapter = TaskAdapter(this, dbTaskList.reversed())
-        recyclerViewSingleTask.adapter = taskAdapter
-        recyclerViewSingleTask.layoutManager = layoutManager
-        ItemTouchHelper(itemTouchHelper).attachToRecyclerView(recyclerViewSingleTask)
+        init()//
 
         floatingButtonAdd=findViewById(R.id.floating_action_button)
         floatingButtonAdd.setOnClickListener(View.OnClickListener {
             openDialog()
         })
+
+    }
+    private fun init() {//
+        dbTaskList = RetrieveTasks(this).execute().get() as ArrayList<TaskEntity>
+        taskAdapter = TaskAdapter(this, dbTaskList.reversed(),object : TaskAdapter.OnItemClickListener {
+            override fun ondeleteClick(taskId:Int) {
+                init() }
+        })//
+        recyclerViewSingleTask.adapter = taskAdapter
+        recyclerViewSingleTask.layoutManager = layoutManager
+        ItemTouchHelper(itemTouchHelper).attachToRecyclerView(recyclerViewSingleTask)
 
     }
 
@@ -71,6 +74,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this,"Task Added",Toast.LENGTH_LONG).show()
                     taskAdapter.notifyDataSetChanged()
                     dialog.dismiss()
+                    init()//
 
                 }
                 else
